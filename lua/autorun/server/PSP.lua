@@ -1,9 +1,10 @@
 --[[
 Name: PSP.lua
-Author: [GFL] Roy
+Author: [GFL] Roy (Christian Deacon)
 Description: Removes props that are lagging the server.
 Version: 3.0
-Website: http://GFLClan.com/ & http://TheDevelopingCommunity.com/
+Year Created: 2014
+Website: http://PSPClan.com/ & http://TheDevelopingCommunity.com/
 ]]--
 
 local _debug = false
@@ -152,22 +153,22 @@ timer.Create("getridofbadprops", checkforprops, 0, function ()
 													if msgadminsonly then
 														if playa:IsAdmin() then
 															if (IsValid(user)) then
-																playa:ChatPrint("[GFL]Removed bad prop #" .. ent:EntIndex() .. ". Owner: " .. nick .. " (" .. steamid .. ")")
+																playa:ChatPrint("[PSP]Removed bad prop #" .. ent:EntIndex() .. ". Owner: " .. nick .. " (" .. steamid .. ")")
 															else
-																playa:ChatPrint("[GFL]Removed bad prop #" .. ent:EntIndex() .. ".")
+																playa:ChatPrint("[PSP]Removed bad prop #" .. ent:EntIndex() .. ".")
 															end
 														end
 													else
 														if (IsValid(user)) then
-															playa:ChatPrint("[GFL]Removed bad prop #" .. ent:EntIndex() .. ". Owner: " .. nick .. " (" .. steamid .. ")")
+															playa:ChatPrint("[PSP]Removed bad prop #" .. ent:EntIndex() .. ". Owner: " .. nick .. " (" .. steamid .. ")")
 														else
-															playa:ChatPrint("[GFL]Removed bad prop #" .. ent:EntIndex() .. ".")
+															playa:ChatPrint("[PSP]Removed bad prop #" .. ent:EntIndex() .. ".")
 														end
 													end
 												end
 											end
 											if logtofile then
-												file.Append("propspammers.txt", "[GFL]Removed bad prop #" .. ent:EntIndex() .. ". Owner: " .. nick .. " (" .. steamid .. ") \n")
+												file.Append("propspammers.txt", "[PSP]Removed bad prop #" .. ent:EntIndex() .. ". Owner: " .. nick .. " (" .. steamid .. ") \n")
 											end
 											-- Time to start the user actions code!
 											if dosomething and IsValid(user) then
@@ -187,7 +188,7 @@ timer.Create("getridofbadprops", checkforprops, 0, function ()
 																-- Ban client!
 																if propcooldown[steamid] == false then
 																	if logtofile then
-																		file.Append("propspammers.txt", "[GFL_BAN]" .. nick .. "(" .. steamid .. ") just got banned for prop spamming! \n")
+																		file.Append("propspammers.txt", "[PSP_BAN]" .. nick .. "(" .. steamid .. ") just got banned for prop spamming! \n")
 																	end
 																	if removeallpropsifbanned then
 																		-- Remove all their props..
@@ -213,7 +214,7 @@ timer.Create("getridofbadprops", checkforprops, 0, function ()
 																-- Kick client!
 																if propcooldown[steamid] == false then
 																	if logtofile then
-																		file.Append("propspammers.txt", "[GFL_KICK]" .. nick .. "(" .. steamid .. ") just got banned for prop spamming! \n")
+																		file.Append("propspammers.txt", "[PSP_KICK]" .. nick .. "(" .. steamid .. ") just got banned for prop spamming! \n")
 																	end
 																	userid[steamid] = nil
 																	RunConsoleCommand("ulx", "kick", nick, "Attempting to lag server (Caught by prop spammer addon)")
@@ -237,7 +238,7 @@ timer.Create("getridofbadprops", checkforprops, 0, function ()
 												end
 											end
 											entitypool[ent:EntIndex()] = nil
-											print("[GFL]Removed Bad Prop! Entity: " .. ent:EntIndex())
+											print("[PSP]Removed Bad Prop! Entity: " .. ent:EntIndex())
 										end
 									else
 										entitypool[highest] = nil
@@ -308,36 +309,36 @@ if strict then
 		if SysTime()-lastthink>Length_of_lag or SysTime()-lastthink<Length_of_lagM then
 			lagging = true
 			if _debug then
-				print("[GFL]Got to strict mode level zero. (Count: " .. strictamount .. ")\n")	
+				print("[PSP]Got to strict mode level zero. (Count: " .. strictamount .. ")\n")	
 			end
 			strictamount = strictamount + 1
 			if (strictamount >= strictmax) then
 				if _debug then
-					print("[GFL]Got to strict mode level one. (Severe Count: " .. strict2amount .. ")")
+					print("[PSP]Got to strict mode level one. (Severe Count: " .. strict2amount .. ")")
 				end
 				-- Server has been lagging for a while.. Let's just try deleting the bad props.
 				strict2amount = strict2amount + 1
 				-- This hopefully should get rid of the penetrating props.
 				RunConsoleCommand("deletebadprops")
 				if logtofile then
-					file.Append("propspammers.txt", "[GFL]Strict mode level one reached. Deleted all bad props.")
+					file.Append("propspammers.txt", "[PSP]Strict mode level one reached. Deleted all bad props.")
 				end
 				if (strict2amount >= strict2max) then
 					if _debug then
-						print("[GFL]Got to strict mode level two.")
+						print("[PSP]Got to strict mode level two.")
 					end
 					-- Screw it... Remove all props.
 					-- If this happens, I am not sure why it occurs. It is known that prop penetrating can show up as false when in reality it is true (no reports on the other way around though)
 					RunConsoleCommand("deleteprops")
 					if logtofile then
-						file.Append("propspammers.txt", "[GFL]Strict mode level two reached. Deleted all props.")
+						file.Append("propspammers.txt", "[PSP]Strict mode level two reached. Deleted all props.")
 					end
 					for k,v in pairs(player.GetAll()) do
-						v:ChatPrint("[GFL]Deleting all penetrating props didn't work! Removed all props to stop the lag!")
+						v:ChatPrint("[PSP]Deleting all penetrating props didn't work! Removed all props to stop the lag!")
 					end
 				else
 					for k,v in pairs(player.GetAll()) do
-						v:ChatPrint("[GFL]Server has been lagging for a while. Removing all penetrating props...")
+						v:ChatPrint("[PSP]Server has been lagging for a while. Removing all penetrating props...")
 					end
 				end
 				
@@ -381,7 +382,7 @@ concommand.Add("checkprops", function (ply)
 	if (IsValid(ply)) then
 		ply:ChatPrint("Scan Prop Count: " .. propcount)
 		if logtofile then
-			file.Append("propspamming_commands.txt", "[GFL][CHECK]" .. ply:Nick() .. " (" .. ply:SteamID() .. ") has checked for props! \n")
+			file.Append("propspamming_commands.txt", "[PSP][CHECK]" .. ply:Nick() .. " (" .. ply:SteamID() .. ") has checked for props! \n")
 		end
 	end
 end )
@@ -423,7 +424,7 @@ concommand.Add("deletebadprops", function (ply)
 							if (IsValid(ply) and IsValid(user)) then
 								ply:ChatPrint("Deleted Prop #" .. prop:EntIndex() .. ". Owner: " .. nick .. " (" .. steamid .. ")")
 							else
-								print("[GFL]Deleted all bad props!")
+								print("[PSP]Deleted all bad props!")
 							end
 						end
 					end
@@ -433,7 +434,7 @@ concommand.Add("deletebadprops", function (ply)
 	end
 	if (IsValid(ply)) then
 		if logtofile then
-			file.Append("propspamming_commands.txt", "[GFL][BADPROPS]" .. ply:Nick() .. " (" .. ply:SteamID() .. ") has deleted all bad props! \n")
+			file.Append("propspamming_commands.txt", "[PSP][BADPROPS]" .. ply:Nick() .. " (" .. ply:SteamID() .. ") has deleted all bad props! \n")
 		end
 	end
 end )
@@ -474,7 +475,7 @@ concommand.Add("deleteprops", function (ply)
 							if (IsValid(ply) and IsValid(user)) then
 								ply:ChatPrint("Deleted Prop #" .. prop:EntIndex() .. ". Owner: " .. nick .. " (" .. steamid .. ")")
 							else
-								print("[GFL]Deleted all props!")
+								print("[PSP]Deleted all props!")
 							end
 						end
 					end
@@ -484,7 +485,7 @@ concommand.Add("deleteprops", function (ply)
 	end
 	if (IsValid(ply)) then
 		if logtofile then
-			file.Append("propspamming_commands.txt", "[GFL][DELETEALLPROPS]" .. ply:Nick() .. " (" .. ply:SteamID() .. ") has deleted all props! \n")
+			file.Append("propspamming_commands.txt", "[PSP][DELETEALLPROPS]" .. ply:Nick() .. " (" .. ply:SteamID() .. ") has deleted all props! \n")
 		end
 	end
 end )
