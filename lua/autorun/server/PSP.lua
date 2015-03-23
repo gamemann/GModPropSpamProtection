@@ -4,7 +4,7 @@ Author: [GFL] Roy (Christian Deacon)
 Description: Removes props that are lagging the server.
 Version: 3.0
 Year Created: 2014
-Website: http://PSPClan.com/ & http://TheDevelopingCommunity.com/
+Website: http://GFLClan.com/ & http://TheDevelopingCommunity.com/
 ]]--
 
 local _debug = false
