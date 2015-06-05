@@ -1,0 +1,11 @@
+"AddonInfo"
+{
+	"name"				"Prop Protection"
+	"version"			"1.1"
+	"up_date"			"06/05/15"
+	"author_name"			"[GFL] Roy (Christian Deacon)"
+	"author_email"			"christiand@thedevelopingcommunity.com"
+	"author_url"			"http://thedevelopingcommunity.com/"
+	"info"				"Protection from prop spammers."
+	"override"			"0"
+}
